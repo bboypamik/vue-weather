@@ -2,7 +2,12 @@
   <div id="app">
     <main>
       <div class="search-box">
-        <input type="text" class="search-bar" placeholder="Search"/>
+        <input type="text"
+        class="search-bar"
+        placeholder="Search"
+        v-model ="query"
+        @keypress="fetchWeather"
+        />
       </div>
 
       <div class="weather-wrap">
@@ -25,7 +30,18 @@ export default {
   data (){
     
     return{
-      api_key: 'https://github.com/bboypamik/vue-weather.git'
+      api_key: 'https://github.com/bboypamik/vue-weather.git',
+      uri_base: 'https://api.openweathermap.org/data/2.5/'
+      query: '',
+      weather: {}
+    }
+  }
+  methods:{
+    fetchWeather(e){
+      if(e.key === "Enter") {
+        fetch(`${this.uri_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
+      }
+
     }
   }
 }
